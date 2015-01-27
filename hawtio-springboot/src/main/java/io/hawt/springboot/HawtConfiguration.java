@@ -1,7 +1,5 @@
 package io.hawt.springboot;
 
-import io.hawt.web.LoginServlet;
-import io.hawt.web.LogoutServlet;
 import io.hawt.web.PluginServlet;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -20,8 +18,7 @@ public class HawtConfiguration {
 
 	@Bean
 	public ServletRegistrationBean pluginServletRegistrationBean() {
-		return new ServletRegistrationBean(new PluginServlet(),
-				"/hawtio/plugin/*");
+		return new ServletRegistrationBean(new PluginServlet(), "/hawtio/plugin/*");
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/hawtio/user")
@@ -32,23 +29,6 @@ public class HawtConfiguration {
 	@RequestMapping(method = RequestMethod.POST, value = "/hawtio/refresh")
 	public @ResponseBody String refresh() {
 		return "ok";
-	}
-
-	/*
-	 * @Bean public ServletRegistrationBean userServletRegistrationBean() {
-	 * return new ServletRegistrationBean(new UserServlet(), "/hawtio/user/*");
-	 * }
-	 */
-	@Bean
-	public ServletRegistrationBean loginServletRegistrationBean() {
-		return new ServletRegistrationBean(new LoginServlet(),
-				"/hawtio/auth/login/*");
-	}
-
-	@Bean
-	public ServletRegistrationBean logoutServletRegistrationBean() {
-		return new ServletRegistrationBean(new LogoutServlet(),
-				"/hawtio/auth/logout/*");
 	}
 
 }
