@@ -1,8 +1,8 @@
 package io.hawt.sample.spring.boot;
 
 import io.hawt.config.ConfigFacade;
-import io.hawt.springboot.HawtPlugin;
-import io.hawt.springboot.PluginService;
+import io.hawt.springboot.HawtConfiguration;
+import io.hawt.web.plugin.HawtioPlugin;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Configuration;
 public class SampleSpringBootService {
 
     public static void main(String[] args) {
-        new SpringApplication(SampleSpringBootService.class).run();
+        new SpringApplication(SampleSpringBootService.class,HawtConfiguration.class).run();
     }
 
 	/**
@@ -22,8 +22,14 @@ public class SampleSpringBootService {
 	 * @return
 	 */
 	@Bean
-	public HawtPlugin samplePlugin() {
-		return new HawtPlugin("sample-plugin", "/hawtio/plugins", "", new String[] { "sample-plugin/js/sample-plugin.js" });
+	public HawtioPlugin samplePlugin() {
+		HawtioPlugin plugin = new HawtioPlugin();
+	    plugin.setName("sample-plugin");
+	    plugin.setScripts(new String[] { "sample-plugin/js/sample-plugin.js" });
+	    plugin.setContext("plugins");
+	    plugin.setDomain("/hawtio/plugins");
+	    plugin.init();
+		return plugin;
 	}
 	
 	/**
@@ -40,14 +46,5 @@ public class SampleSpringBootService {
 		};
 		config.init();
 		return config;
-	}
-	
-	/**
-	 * Register rest endpoint to handle requests for /plugin, and return all registered plugins.
-	 * @return
-	 */
-	@Bean
-	public PluginService pluginService(){
-		return new PluginService();
 	}
 }
