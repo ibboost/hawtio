@@ -167,7 +167,7 @@
     <module>hawtio-plugin-mbean</module>
     <module>example-services</module>
     <module>hawtio-web</module>
-    <module>hawtio-api-docs</module>
+    <!--<module>hawtio-api-docs</module>-->
     <module>hawtio-base</module>
     <module>hawtio-default</module>
     <module>hawtio-default-offline</module>
